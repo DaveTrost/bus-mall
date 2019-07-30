@@ -6,13 +6,13 @@ header {
     height: 10vh;
 }
 header img {
-    height: calc(10vh - 10px);
+    height: calc(10vh + 10px);
     float: left;
 }
 header h3, header p {
     color: #75746E;
     margin: 0;
-    margin-left: 10vh;
+    margin-left: 29vh;
     line-height: 1em;
 }
 header h3 {
@@ -50,8 +50,8 @@ h2 {
 h2, h3 {
     /* equation for font scaling between a min and a max using calc from: https://css-tricks.com/books/volume-i/scale-typography-screen-size/ */
     /* (100vw - 300)/1300 = (font-size - min-size)/(max-size - min-size) */
-    /* solved here for 16px to 24px */
-    font-size: calc( (2px + (100vw - 300px) / 1300) * 8);
+    /* solved here for 16px to 40px */
+    font-size: calc( (0.67px + (100vw - 300px) / 1300) * 24);
 }
 
 
@@ -102,6 +102,7 @@ h2, h3 {
 } 
 #choices {
     width: 100%;
+    height: 200%;
     max-width: 900px;
     margin: auto;
     display: grid;
@@ -117,12 +118,18 @@ h2, h3 {
 .choice {
     width: calc(100% - 3px);
     height: calc(100% - 3px);
+    padding: 0;
+    margin: 5px;
+    /* background-image: url("../assets/bus-seat-back.jpg");
+    background-position: center;
+    background-size: cover; */
 }
 .choice img {
     width: 100%;
     height: 100%;
-    padding: 2px;
     object-fit: contain;
+    /* object-position: bottom; */
+    /* transform: translateY(-205px); */
 }
 
 
