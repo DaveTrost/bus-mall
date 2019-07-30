@@ -2,6 +2,23 @@
     box-sizing: border-box;
 }
 
+header {
+    height: 10vh;
+}
+header img {
+    height: calc(10vh - 10px);
+    float: left;
+}
+header h3, header p {
+    color: #75746E;
+    margin: 0;
+    margin-left: 10vh;
+    line-height: 1em;
+}
+header h3 {
+    padding-top: 10px;
+}
+
 
 body {
     font-family: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -29,6 +46,8 @@ h2 {
     color: #EB4511; 
     background-color: #C1BFB5;
     border-radius: 5px;
+}
+h2, h3 {
     /* equation for font scaling between a min and a max using calc from: https://css-tricks.com/books/volume-i/scale-typography-screen-size/ */
     /* (100vw - 300)/1300 = (font-size - min-size)/(max-size - min-size) */
     /* solved here for 16px to 24px */
