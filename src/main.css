@@ -40,22 +40,45 @@ h2 {
     position: relative;
     margin-bottom: 50px;
 }
-#instructions-drawer button {
+#instructions-drawer h2 {
+    width: 100%;
+    position: absolute
+}
+#instructions-show-hide + label {
+    font-weight: bolder;
+    right: 10px;
+    top: 25px;
+    position: absolute;
+}
+#instructions-show-hide {
+    visibility: hidden;
+}
+#instructions-show-hide + label:after {
+    content: "+";
+}
+#instructions-show-hide:checked + label:after {
+    content: "-";
+}
+#instructions-drawer div {
+    margin-top: 60px;
+    display: none;
+}
+#instructions-show-hide:checked + label + div {
+    display: block;
+}
+#instructions-drawer div button {
     height: 40px;
     width: 160px;
-    bottom: -20px;
-    left: calc(50% - 80px);
-    position: absolute;
     color: #FEFDFF;
     background-color: #B02E0C
 }
 
 
-#survey-drawer h1 {
+#survey-drawer h2 {
     display: inline-block;
-    padding: 15px;
-    border-radius: 5px;
-    color: #C1BFB5;
+    padding: 20px;
+    border-radius: 0;
+    color: #FEFDEF;
     background-color: #EB4511;
 } 
 #choices {
@@ -110,3 +133,27 @@ h2 {
 #results-drawer {
     margin-bottom: 50px;
 }
+
+
+.hidden {
+    display: none;
+}
+
+
+/* @keyframes shrink {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(0.5);
+        opacity: 0; 
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0; 
+    }
+}
+.shrink-out {
+    animation: shrink 1s linear;
+} */

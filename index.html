@@ -10,23 +10,24 @@
 <body>
     <header id="instructions-drawer">
         <h2>Instructions</h2>
+        <input type="checkbox" checked id="instructions-show-hide"><label for="instructions-show-hide"></label>
         <div>
             <p>
-                The Bus-Mall marketing team welcomes you to participate in this study. 
-                The products you will be shown on this page are potential sale items for our highly popular Bus-Mall magazine.
-                Images of these high-quality products will be presented to you three-at-a-time. 
-                We ask you to give each item a moment's consideration and then pick one item out of the three displayed that most resonates with you.
-                Remember, your first impression is the most valuable! And we value your impressions!
+                The Bus-Mall crack marketing team welcomes you to participate in this study. 
+                The products shown on this page are REAL-LIFE potential sale items for our Bus-Mall magazine.
+                (Think Sky-Mall for Greyhound??).
             </p>
             <p>
-                Thank you!
+                Images of these unbelievable products will be presented three-at-a-time. 
+                We ask you to pick based on your first impression ...
+                Why? Because it's better to pick for us than to pick your nose. Duh!
             </p>
-            <button>Start the Study</button>
+            <button id="start-reset">Start the Study</button>
         </div>
     </header>
     <main>
-        <section id="survey-drawer">
-            <h1>Which item are you most likely to buy?</h1>
+        <section id="survey-drawer" class="hidden">
+            <h2>Which item are you most likely to buy?</h2>
             <div id="choices">
                 <button class="choice" id="choice-1">
                     <img src="assets/bubblegum.jpg" alt="hearty Italian style meatball bubblegum">
@@ -39,7 +40,7 @@
                 </button>
             </div>
         </section>
-        <section id="results-drawer">
+        <section id="results-drawer" class="hidden">
             <h2>Results</h2>
             <table id="results">
                 <thead>
@@ -63,7 +64,7 @@
                 </tbody>
             </table>
         </section>
-        <source src="src/show-study.js" type="module">
+        <script src="src/give-survey.js" type="module"></script>
     </main>
 </body>
 </html>
