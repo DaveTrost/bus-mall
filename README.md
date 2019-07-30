@@ -1,1 +1,39 @@
-# bus-mall
+# bus-mall development plan
+
+## Build User Interface
+
+- import all image files and testing setup files
+- build a template for 3 images
+- build a template for the results that will display after 25 choices are made
+
+## Drive user interface from JS
+
+- Start/Restart button kicks off the survey loop
+
+- survey loop
+  - Init
+    - show survey section
+    - hide results section
+    - disable the start/restart button
+  - Loop until 25 choices have been made
+    - generate a new set of 3 images
+      - build a temporary image list that excludees the last set of images used
+      - start a loop
+        - get a random set of 3 images from the temporary image list
+        - for each set in .setHistory[], check if any 2 products from the current random set have been included in a single previous set.
+      - loop until a set is created that meets the requirement
+    - display the new set of 3 images
+    - wait for click event
+    - update data
+      - increment numChoices
+      - increment the times chosen variable from chosenItem[] array
+      - set the .lastSet variable
+      - add .lastSet to the history of sets shown (.setHistory[])
+    - continue the loop
+
+- End of Survey
+  - hide the survey section
+  - show the results section
+  - rename the Start button to Restart and enable the button
+  - generate results table
+  - display the results table

@@ -1,0 +1,179 @@
+* {
+    box-sizing: border-box;
+}
+
+header {
+    height: 10vh;
+}
+header img {
+    height: calc(10vh - 10px);
+    float: left;
+}
+header h3, header p {
+    color: #75746E;
+    margin: 0;
+    margin-left: 10vh;
+    line-height: 1em;
+}
+header h3 {
+    padding-top: 10px;
+}
+
+
+body {
+    font-family: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    max-width: 900px;
+    background-color: #FEFDFF;
+}
+p {
+    /* equation for font scaling between a min and a max using calc from: https://css-tricks.com/books/volume-i/scale-typography-screen-size/ */
+    /* (100vw - 300)/1300 = (font-size - min-size)/(max-size - min-size) */
+    /* solved here for 12px to 20px */
+    font-size: calc( (1.6px + (100vw - 300px) / 1300) * 8);
+    color: #8EB1C7;
+}
+button {
+    border-radius: 5px;
+    transition: 350ms ease-in-out;
+    background-color: #C1BFB5;
+}
+button:hover {
+    box-shadow: 3px 3px 4px #B02E0C;
+    transform: translate(-2px, -2px);
+}
+h2 {
+    padding: 10px;
+    color: #EB4511; 
+    background-color: #C1BFB5;
+    border-radius: 5px;
+}
+h2, h3 {
+    /* equation for font scaling between a min and a max using calc from: https://css-tricks.com/books/volume-i/scale-typography-screen-size/ */
+    /* (100vw - 300)/1300 = (font-size - min-size)/(max-size - min-size) */
+    /* solved here for 16px to 24px */
+    font-size: calc( (2px + (100vw - 300px) / 1300) * 8);
+}
+
+
+#instructions-drawer {
+    position: relative;
+    margin-bottom: 50px;
+}
+#instructions-drawer h2 {
+    width: 100%;
+    position: absolute
+}
+#instructions-show-hide + label {
+    font-weight: bolder;
+    right: 10px;
+    top: 25px;
+    position: absolute;
+}
+#instructions-show-hide {
+    visibility: hidden;
+}
+#instructions-show-hide + label:after {
+    content: "+";
+}
+#instructions-show-hide:checked + label:after {
+    content: "-";
+}
+#instructions-drawer div {
+    margin-top: 60px;
+    display: none;
+}
+#instructions-show-hide:checked + label + div {
+    display: block;
+}
+#instructions-drawer div button {
+    height: 40px;
+    width: 160px;
+    color: #FEFDFF;
+    background-color: #B02E0C
+}
+
+
+#survey-drawer h2 {
+    display: inline-block;
+    padding: 20px;
+    border-radius: 0;
+    color: #FEFDEF;
+    background-color: #EB4511;
+} 
+#choices {
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+/* This technique comes from https://www.w3schools.com/howto/howto_css_responsive_text.asp */
+@media screen and (max-width: 480px) {
+    #choices {
+        grid-template-columns: 70%;
+        justify-content: center;
+    }
+}
+.choice {
+    width: calc(100% - 3px);
+    height: calc(100% - 3px);
+}
+.choice img {
+    width: 100%;
+    height: 100%;
+    padding: 2px;
+    object-fit: contain;
+}
+
+
+#results {
+    width: 80%;
+    max-width: 500px;
+    margin-left: 10%;
+    border-collapse: collapse;
+}
+#results th {
+    height: 2.2em;
+    background-color: #8EB1C7;
+}
+#results tr {
+    border-bottom: 1px solid #8EB1C7;
+}  
+#results td {
+    padding: 5px;
+    height: 5em;
+    width: 20%;
+    text-align: center;
+}
+#results img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+#results-drawer {
+    margin-bottom: 50px;
+}
+
+
+.hidden {
+    display: none;
+}
+
+
+/* @keyframes shrink {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(0.5);
+        opacity: 0; 
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0; 
+    }
+}
+.shrink-out {
+    animation: shrink 1s linear;
+} */
