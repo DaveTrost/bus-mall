@@ -18,6 +18,13 @@ export const storage = {
         }
         return productList;
     },
+    findElement(elements, code) {
+        return elements.find((element) => element.code === code);
+    },
+    getProduct(code) {
+        const productList = this.getProducts();
+        return this.findElement(productList, code);
+    },
     storeResults(results) {
         this.save(RESULTS_KEY, results);
     },

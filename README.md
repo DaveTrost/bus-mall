@@ -54,3 +54,10 @@
 - Object: storage - this saves data to and retrieves it from localStorage
   - The store bootstraps itself from input data
   - methods to save results to localStorage and retrieve results from localStorage
+
+### to-do
+
+- cleanup CSS for results header
+- make the restart button work
+- add alt text to images
+- investigate buttons occasionally not working

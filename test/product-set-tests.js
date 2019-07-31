@@ -36,7 +36,7 @@ test('test generate random codes', assert => {
     const attempts = 1000;
     let countUnexpectedResults = 0;
     for(let i = 0; i < attempts; i++){
-        if(deepEqual(productSet.generateRandomSetOfCodes(), unexpected)) {
+        if(deepEqual(productSet.generateRandomSetOfCodes(3), unexpected)) {
             countUnexpectedResults++;
         }
     }

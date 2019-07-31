@@ -29,7 +29,10 @@ export class SurveyTracker {
         this.history.push(set);
     }
     getLastSetFromHistory() {
-        return (this.history.length > 0) ? this.history[this.history.length - 1] : null;
+        if(this.history.length > 0) {
+            return this.history[this.history.length - 1];
+        }
+        return null;
     }
     getAllHistory() {
         return this.history;

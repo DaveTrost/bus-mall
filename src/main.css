@@ -155,6 +155,7 @@ h2, h3 {
     object-fit: contain;
 }
 #results-drawer {
+    margin-top: calc(40px + 5vw);
     margin-bottom: 50px;
 }
 

@@ -8,7 +8,7 @@ export class ProductSet {
             this.list.splice(elementIndex, 1);
         }
     }
-    generateRandomSetOfCodes() {
+    generateRandomSetOfCodes(setSize) {
         let index = this.list.length;
         let randomSet = [];
 
@@ -16,7 +16,10 @@ export class ProductSet {
         // https://stackoverflow.com/questions/18806210/generating-non-repeating-random-numbers-in-js
         while(index--) {
             let randomIndex = Math.floor(Math.random() * (index + 1));
-            randomSet.push(this.list[randomIndex].code);
+
+            if(randomSet.length < setSize) {
+                randomSet.push(this.list[randomIndex].code);
+            }
 
             // Got this method for destructuring assignment array matching from:
             // https://medium.com/better-programming/how-swap-two-values-without-temporary-variables-using-javascript-8bb28f96b5f6
