@@ -58,8 +58,8 @@
 ### to-do
 
 - cleanup CSS for results header - DONE
-- long term history vs. session history
-  - make the restart button work & clear the single session variables
+- long term history vs. session history - DONE
+  - clear the single session variables on start and re-start - DONE
 - add alt text to images - DONE
 - investigate buttons occasionally not working - DONE
 
