@@ -28,10 +28,18 @@ function handleSurveyAnswer(e) {
     let code = e.target.id;
     surveyOperator.addAnswerToResults(code);
 
+    const choices = document.querySelectorAll('.choice');
+    choices[0].disabled = true;
+    choices[1].disabled = true;
+    choices[2].disabled = true;
+
     if(surveyOperator.getNumAnswers() < 25) {
-        displaySet = generateNonDuplicateSet(surveyOperator);
+        let displaySet = generateNonDuplicateSet(surveyOperator);
         surveyOperator.addSetToHistory(displaySet);
         displayChoices(surveyOperator);
+        choices[0].disabled = false;
+        choices[1].disabled = false;
+        choices[2].disabled = false;    
     }
     else {
         endSurvey();
@@ -70,7 +78,7 @@ function generateNonDuplicateSet(surveyOperator) {
                 newSet = [];
             }
         });
-    } while(!newSet);
+    } while(newSet.length === 0);
 
     return newSet;
 }
