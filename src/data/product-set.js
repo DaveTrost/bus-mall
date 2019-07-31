@@ -26,13 +26,5 @@ export class ProductSet {
             [this.list[randomIndex], this.list[index]] = [this.list[index], this.list[randomIndex]];    
         }
         return randomSet;
-
-        // for(let i = length - 1; i > length - 1 - 3; i--) {
-        //     let randomIndex = Math.floor(Math.random() * i);
-        //     randomSet.push(this.list[randomIndex].code);
-        //     // Got this method for destructuring assignment array matching from:
-        //     // https://medium.com/better-programming/how-swap-two-values-without-temporary-variables-using-javascript-8bb28f96b5f6
-        //     [this.list[randomIndex], this.list[i]] = [this.list[i], this.list[randomIndex]];
-        // }
     }
 }
