@@ -24,5 +24,5 @@ export const storage = {
     getResults() {
         const results = this.get(RESULTS_KEY);
         return (results) ? results : [];
-    },
+    }
 };

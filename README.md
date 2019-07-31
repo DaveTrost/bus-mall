@@ -26,7 +26,7 @@
     - wait for click event
     - update data
       - increment numChoices - DONE
-      - increment the occurences for this choice - DONE
+      - increment the occurrences for this choice - DONE
       - set the .lastSet variable
       - add .lastSet to the history of sets shown (.setHistory[])
     - continue the loop

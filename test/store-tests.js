@@ -21,3 +21,17 @@ test('test get and save', assert => {
 test('test bootstrapping works in getProducts', assert => {
     assert.deepEqual(storage.getProducts(), products);
 });
+
+test('test get results when results is empty', assert => {
+    assert.deepEqual(storage.getResults(), []);
+});
+
+test('test store and get results', assert => {
+    const expected = { 
+        code: 'test-code', 
+        occurrence: 1
+    };
+    storage.storeResults(expected);
+    assert.deepEqual(storage.getResults(), expected);
+});
+
