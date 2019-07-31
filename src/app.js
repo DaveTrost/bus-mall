@@ -2,9 +2,6 @@ import { storage } from './data/storage.js';
 import { SurveyTracker } from './data/survey-tracker.js';
 import { ProductSet } from './data/product-set.js';
 
-const surveyOperator = new SurveyTracker();
-const products = storage.getProducts();
-
 const instructionsShowHide = document.getElementById('instructions-show-hide');
 const startRestart = document.getElementById('start-reset');
 const surveyDrawer = document.getElementById('survey-drawer');
@@ -12,12 +9,15 @@ const resultsDrawer = document.getElementById('results-drawer');
 const choices = document.querySelectorAll('.choice');
 
 
+let surveyOperator = new SurveyTracker();
+const products = storage.getProducts();
 resultsDrawer.classList.add('hidden');
 let displaySet = generateNonDuplicateSet(surveyOperator);
 surveyOperator.addSetToHistory(displaySet);
 displayChoices(surveyOperator);
 
 startRestart.addEventListener('click', () => {
+    surveyOperator = new SurveyTracker();
     surveyDrawer.classList.remove('hidden');
     resultsDrawer.classList.add('hidden');
     instructionsShowHide.checked = false;
@@ -64,7 +64,6 @@ function displayChoices(surveyOperator) {
         element.parentNode.value = product.code;
     }
 }
-
 
 function generateNonDuplicateSet(surveyOperator) {
     const productSet = new ProductSet(products);

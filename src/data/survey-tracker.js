@@ -3,12 +3,12 @@ import { storage } from './storage.js';
 export class SurveyTracker {
     constructor() {
         this.answers = 0;
-        this.answeroccurrence = [];
+        this.answerOccurrence = [];
         this.history = [];
     }
 
     findAnswer(code) {
-        return this.answeroccurrence.find((element) => element.code === code);
+        return this.answerOccurrence.find((element) => element.code === code);
     }
     addAnswerToResults(answer) {
         this.answers++;
@@ -18,15 +18,31 @@ export class SurveyTracker {
             currentAnswer.occurrence++;
         }
         else {
-            this.answeroccurrence.push({ 
+            this.answerOccurrence.push({ 
                 code: answer, 
                 occurrence: 1
             });
         }
-        storage.storeResults(this.answeroccurrence);
+
+        const longTermResults = storage.getResults();
+        const historicalAnswer = longTermResults.find((element) => element.code === answer);
+        if(historicalAnswer) {
+            historicalAnswer.occurrence++;
+        }
+        else {
+            longTermResults.push({ 
+                code: answer, 
+                occurrence: 1
+            });
+        }
+        storage.storeResults(longTermResults);
     }
     addSetToHistory(set) {
         this.history.push(set);
+
+        const longTermHistory = storage.getHistory();
+        longTermHistory.push(set);
+        storage.storeHistory(longTermHistory);
     }
     getLastSetFromHistory() {
         if(this.history.length > 0) {
