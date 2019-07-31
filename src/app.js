@@ -25,7 +25,7 @@ startRestart.addEventListener('click', () => {
 
 choices.forEach((element) => element.addEventListener('click', (event) => handleSurveyAnswer(event)));
 function handleSurveyAnswer(e) {
-    let code = e.target.id;
+    const code = e.currentTarget.value;
     surveyOperator.addAnswerToResults(code);
 
     const choices = document.querySelectorAll('.choice');
@@ -55,9 +55,14 @@ function endSurvey() {
 
 function displayChoices(surveyOperator) {
     const currentSet = surveyOperator.getLastSetFromHistory();
-    document.getElementById('img-1').src = storage.getProduct(currentSet[0]).image;
-    document.getElementById('img-2').src = storage.getProduct(currentSet[1]).image;
-    document.getElementById('img-3').src = storage.getProduct(currentSet[2]).image;
+
+    for(let i = 0; i < 3; i++) {
+        const element = document.getElementById('img-' + (i + 1));
+        const product = storage.getProduct(currentSet[i]);
+        element.src = product.image;
+        element.alt = product.name;
+        element.parentNode.value = product.code;
+    }
 }
 
 
