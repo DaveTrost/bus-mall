@@ -65,9 +65,10 @@ h2, h3 {
     position: absolute
 }
 #instructions-show-hide + label {
-    font-weight: bolder;
+    font-size: calc(30px + 3vw);
+    font-weight: bold;
     right: 10px;
-    top: 25px;
+    top: 1.8vh;
     position: absolute;
 }
 #instructions-show-hide {
@@ -80,7 +81,7 @@ h2, h3 {
     content: "-";
 }
 #instructions-drawer div {
-    margin-top: 60px;
+    margin-top: calc(20px + 5vw);
     display: none;
 }
 #instructions-show-hide:checked + label + div {
