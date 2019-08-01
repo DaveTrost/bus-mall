@@ -1,6 +1,8 @@
 import { storage } from './data/storage.js';
 import { SurveyTracker } from './data/survey-tracker.js';
 import { ProductSet } from './data/product-set.js';
+import { Sound } from './data/sound.js';
+
 
 const instructionsShowHide = document.getElementById('instructions-show-hide');
 const startRestart = document.getElementById('start-reset');
@@ -15,13 +17,22 @@ resultsDrawer.classList.add('hidden');
 let displaySet = generateNonDuplicateSet(surveyOperator);
 surveyOperator.addSetToHistory(displaySet);
 displayChoices(surveyOperator);
+// Music by Eric Matyas
+// www.soundimage.org
+const surveyMusic = new Sound('http://soundimage.org/wp-content/uploads/2015/08/My-Fat-Cat.mp3');
+const endSurveyMusic = new Sound('http://soundimage.org/wp-content/uploads/2016/04/PowerRez7.mp3');
+
 
 startRestart.addEventListener('click', () => {
     surveyOperator = new SurveyTracker();
     surveyDrawer.classList.remove('hidden');
     resultsDrawer.classList.add('hidden');
     instructionsShowHide.checked = false;
+
+    surveyMusic.loop();
+  
 });
+
 
 choices.forEach((element) => element.addEventListener('click', (event) => handleSurveyAnswer(event)));
 function handleSurveyAnswer(e) {
@@ -50,7 +61,8 @@ function handleSurveyAnswer(e) {
 function endSurvey() {
     surveyDrawer.classList.add('hidden');
     resultsDrawer.classList.remove('hidden');
-
+    surveyMusic.stop();
+    endSurveyMusic.play();
     drawCharts();
 }
 
