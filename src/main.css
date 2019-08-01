@@ -65,10 +65,9 @@ h2, h3 {
     position: absolute
 }
 #instructions-show-hide + label {
-    font-size: calc(30px + 3vw);
-    font-weight: bold;
+    font-size: calc(22px + 1vw);
     right: 10px;
-    top: 1.8vh;
+    top: calc( (0.67px + (100vw - 300px) / 1300) * 24);
     position: absolute;
 }
 #instructions-show-hide {
@@ -119,7 +118,8 @@ h2, h3 {
 }
 .choice {
     width: calc(100% - 3px);
-    height: calc(100% - 3px);
+    height: calc(30vw - 3px);
+    max-height: 270px;
     padding: 0;
     margin: 5px;
 }

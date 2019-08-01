@@ -66,9 +66,11 @@
 - Refactor - DONE
 - get Travis to pass - DONE
 - add a results button - DONE
-- get charts to be responsive 
-- status message
-- fix +/- text size on instructions drawer
-- set fixed height on image tiles
+- get charts to be responsive - DONE
+  - Thank you Sam J for the help!!
+- set fixed height on image tiles - DONE
+- fix +/- text size on instructions drawer - DONE
 - show total number of selections on an alternate axis
   - datasets property: yAxisID: 'first-y-axis',
+  - stacked axis
+- status message
