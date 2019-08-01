@@ -24,7 +24,7 @@ export class SurveyTracker {
             });
         }
 
-        const longTermResults = storage.getResults();
+        const longTermResults = storage.getAnswers();
         const historicalAnswer = longTermResults.find((element) => element.code === answer);
         if(historicalAnswer) {
             historicalAnswer.occurrence++;

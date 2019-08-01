@@ -36,9 +36,18 @@ export const storage = {
     storeResults(results) {
         this.save(RESULTS_KEY, results);
     },
-    getResults() {
+    getAnswers() {
         const results = this.get(RESULTS_KEY);
         return (results) ? results : [];
+    },
+    getAnswerOccurrence(answer) {
+        const results = this.getAnswers();
+        let occurrences = 0;
+        const element = this.findElement(results, answer);
+        if(element) {
+            occurrences = element.occurrence;
+        }
+        return occurrences;
     },
     storeHistory(history) {
         this.save(HISTORY_KEY, history);

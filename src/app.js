@@ -11,14 +11,7 @@ const choices = document.querySelectorAll('.choice');
 
 let surveyOperator = new SurveyTracker();
 const products = storage.getProducts();
-
-
-
-//resultsDrawer.classList.add('hidden');
-drawCharts();
-
-
-
+resultsDrawer.classList.add('hidden');
 let displaySet = generateNonDuplicateSet(surveyOperator);
 surveyOperator.addSetToHistory(displaySet);
 displayChoices(surveyOperator);
@@ -55,7 +48,6 @@ function handleSurveyAnswer(e) {
 
 
 function endSurvey() {
-    alert('We haz extracted all of your brain juice. You leave now.');
     surveyDrawer.classList.add('hidden');
     resultsDrawer.classList.remove('hidden');
 
@@ -109,16 +101,18 @@ function testSetsForPairEquivalence(set1, set2) {
 }
 
 function drawCharts() {
-
     let productLabels = [];
+    let sessionSelectionsDataPoints = [];
     let sessionOccurenceDataPoints = [];
-    let historicalOccurenceDataPoints = [];
+    let historicalSelectionsDataPoints = [];
     let numChoicesPoints = [];
+
+
     const products = storage.getProducts();
     products.forEach(element => {
         productLabels.push(element.name);
-        sessionOccurenceDataPoints.push(surveyOperator.getAnswerOccurrence(element.code));
-        historicalOccurenceDataPoints.push(surveyOperator.getItemOccurrenceFromSetHistory(element.code));
+        sessionSelectionsDataPoints.push(surveyOperator.getAnswerOccurrence(element.code));
+        sessionOccurenceDataPoints.push(surveyOperator.getItemOccurrenceFromSetHistory(element.code));
         numChoicesPoints.push(surveyOperator.getNumAnswers());
     });
     
@@ -142,14 +136,14 @@ function drawCharts() {
                     backgroundColor: fillPattern2,
                     borderColor: 'rgb(255, 99, 255)',
                     borderWidth: 5,
-                    data: sessionOccurenceDataPoints
+                    data: sessionSelectionsDataPoints
                 }, {
                     label: 'Number of Times Shown',
                     // yAxisID: 'first-y-axis',
                     backgroundColor: fillPattern1,
                     borderColor: 'rgb(128, 172, 53)',
                     borderWidth: 8,
-                    data: historicalOccurenceDataPoints
+                    data: sessionOccurenceDataPoints
                 }
                 // , {
                 //     label: 'Total Number of Selections',
@@ -163,6 +157,12 @@ function drawCharts() {
                 ]
             },
             options: {
+                title: {
+                    text: 'Survey Results (btw your taste is AWFUL)',
+                    display: true,
+                    fontSize: '35',
+                    fontColor: '#8EB1C7'
+                },
                 scales: {
                     yAxes: [{
                         ticks: {
@@ -175,38 +175,59 @@ function drawCharts() {
     };
 
 
-
+    products.forEach(element => {
+        historicalSelectionsDataPoints.push(storage.getAnswerOccurrence(element.code));
+    });
     
-    const ctxFrequencyInSession = document.getElementById('frequency-chart-session').getContext('2d');
-    let chart = new Chart(ctxFrequencyInSession, {
+    const historicalCtx = document.getElementById('frequency-chart-session').getContext('2d');
+    let chart = new Chart(historicalCtx, {
         type: 'pie',
         data: {
-            labels: [
-                'Red',
-                'Orange',
-                'Yellow',
-                'Green',
-                'Blue'
-            ],
+            labels: productLabels,
             datasets: [{
-                label: 'Dataset 1',
-                data: [
-                    0,
-                    10,
-                    5,
-                    7,
-                    20,
-                ],
+                label: 'Number of Times Selected (all-time)',
+                data: historicalSelectionsDataPoints,
+                borderColor: '#555',
                 backgroundColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(255, 99, 132)',
-                    'rgb(255, 99, 132)',
-                    'rgb(255, 99, 132)',
-                    'rgb(255, 99, 132)',
+                    '#80F31F',
+                    '#A5DE0B',
+                    '#C7C101',
+                    '#E39E03',
+                    '#F6780F',
+                    '#FE5326',
+                    '#FB3244',
+                    '#ED1868',
+                    '#D5078E',
+                    '#B601B3',
+                    '#9106D3',
+                    '#6B16EC',
+                    '#472FFA',
+                    '#2850FE',
+                    '#1175F7',
+                    '#039BE5',
+                    '#01BECA',
+                    '#0ADCA8',
+                    '#1DF283',
+                    '#3AFD5D',
+                    '#5CFD3A',
+                    '#82F21E',
+                    '#A7DD0A',
+                    '#C9BF01',
+                    '#E49C03'
                 ]
             }]
         },
         options: {
+            title: {
+                text: 'All-time selections (looks like a unicorn turd, doesn\'t it?)',
+                display: true,
+                fontSize: '35',
+                fontColor: '#8EB1C7'
+            },
+            legend: {
+                position: 'left'
+            },
+            responsive: true
         }
     });
 
