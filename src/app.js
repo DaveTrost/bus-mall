@@ -190,7 +190,8 @@ function drawChartWithSessionData(productLabels, sessionSelectionsDataPoints, se
                             beginAtZero: true
                         }
                     }]
-                }
+                },
+                responsive: true
             }
         });
     };
