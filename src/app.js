@@ -135,18 +135,20 @@ function drawCharts() {
     let sessionSelectionsDataPoints = [];
     let sessionOccurenceDataPoints = [];
     let historicalSelectionsDataPoints = [];
+    let historicalOccurrenceDataPoints = [];
     let numChoicesPoints = [];
 
     products.forEach(element => {
         productLabels.push(element.name);
         sessionSelectionsDataPoints.push(surveyOperator.getAnswerOccurrence(element.code));
-        sessionOccurenceDataPoints.push(surveyOperator.getItemOccurrenceFromSetHistory(element.code));
+        sessionOccurenceDataPoints.push(surveyOperator.getItemOccurrenceFromSessionHistory(element.code));
         numChoicesPoints.push(surveyOperator.getNumAnswers());
         historicalSelectionsDataPoints.push(storage.getAnswerOccurrence(element.code));
+        historicalOccurrenceDataPoints.push(storage.getItemOccurrenceFromAllHistory(element.code));
     });
     
     drawChartWithSessionData(productLabels, sessionSelectionsDataPoints, sessionOccurenceDataPoints);
-    drawChartWithHistoricalData(productLabels, historicalSelectionsDataPoints);
+    drawChartWithHistoricalData(productLabels, historicalSelectionsDataPoints, historicalOccurrenceDataPoints);
 }
 
 function drawChartWithSessionData(productLabels, sessionSelectionsDataPoints, sessionOccurenceDataPoints) {
@@ -197,10 +199,11 @@ function drawChartWithSessionData(productLabels, sessionSelectionsDataPoints, se
     };
 }
 
-function drawChartWithHistoricalData(productLabels, historicalSelectionsDataPoints) {
-    const historicalCtx = document.getElementById('frequency-chart-session').getContext('2d');
+function drawChartWithHistoricalData(productLabels, historicalSelectionsDataPoints, historicalOccurrenceDataPoints) {
+
+    const historicalPieCtx = document.getElementById('frequency-chart-session').getContext('2d');
     /* eslint-disable-next-line */
-    let chart = new Chart(historicalCtx, {
+    let pieChart = new Chart(historicalPieCtx, {
         type: 'pie',
         data: {
             labels: productLabels,
@@ -246,6 +249,41 @@ function drawChartWithHistoricalData(productLabels, historicalSelectionsDataPoin
             },
             legend: {
                 position: 'left'
+            },
+            responsive: true
+        }
+    });
+
+
+    const historicalCtx = document.getElementById('choices-chart-history').getContext('2d');
+    /* eslint-disable-next-line */
+    let chart = new Chart(historicalCtx, {
+        type: 'bar',
+        data: {
+            labels: productLabels,
+            datasets: [{
+                label: 'All Time User Selections',
+                backgroundColor: 'rgb(255, 99, 255)',
+                data: historicalSelectionsDataPoints
+            }, {
+                label: 'All Time Views',
+                backgroundColor: 'rgb(128, 172, 53)',
+                data: historicalOccurrenceDataPoints
+            }]
+        },
+        options: {
+            title: {
+                text: 'Survey Results (boring historical data)',
+                display: true,
+                fontSize: '35',
+                fontColor: '#8EB1C7'
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
             },
             responsive: true
         }

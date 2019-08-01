@@ -64,7 +64,7 @@ export class SurveyTracker {
         }
         return occurrence;
     }
-    getItemOccurrenceFromSetHistory(code) {
+    getItemOccurrenceFromSessionHistory(code) {
         let occurrences = 0;
         const allHistory = this.getAllHistory();
         allHistory.forEach(setElement => {

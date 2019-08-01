@@ -49,6 +49,18 @@ export const storage = {
         }
         return occurrences;
     },
+    getItemOccurrenceFromAllHistory(answer) {
+        const history = this.getHistory();
+        let occurrences = 0;
+        history.forEach(setElement => {
+            setElement.forEach(element => {
+                if(element === answer) {
+                    occurrences++;
+                }
+            });
+        });
+        return occurrences;
+    },
     storeHistory(history) {
         this.save(HISTORY_KEY, history);
     },
