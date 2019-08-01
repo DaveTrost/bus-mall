@@ -2,8 +2,16 @@ import { storage } from './data/storage.js';
 import { SurveyTracker } from './data/survey-tracker.js';
 import { ProductSet } from './data/product-set.js';
 import { Sound } from './data/sound.js';
+export const SURVEY_LENGTH = 25;
+export const SURVEY_SETSIZE = 3;
 
+/* Music by Eric Matyas
+   www.soundimage.org */
+const surveyMusic = new Sound('http://soundimage.org/wp-content/uploads/2015/08/My-Fat-Cat.mp3');
+const endSurveyMusic = new Sound('http://soundimage.org/wp-content/uploads/2016/04/PowerRez7.mp3');
 
+const products = storage.getProducts();
+let surveyOperator = new SurveyTracker();
 const instructionsShowHide = document.getElementById('instructions-show-hide');
 const startRestart = document.getElementById('start-reset');
 const surveyDrawer = document.getElementById('survey-drawer');
@@ -11,65 +19,68 @@ const resultsDrawer = document.getElementById('results-drawer');
 const choices = document.querySelectorAll('.choice');
 
 
-let surveyOperator = new SurveyTracker();
-const products = storage.getProducts();
-resultsDrawer.classList.add('hidden');
-let displaySet = generateNonDuplicateSet(surveyOperator);
-surveyOperator.addSetToHistory(displaySet);
-displayChoices(surveyOperator);
-// Music by Eric Matyas
-// www.soundimage.org
-const surveyMusic = new Sound('http://soundimage.org/wp-content/uploads/2015/08/My-Fat-Cat.mp3');
-const endSurveyMusic = new Sound('http://soundimage.org/wp-content/uploads/2016/04/PowerRez7.mp3');
-
+initializePage();
 
 startRestart.addEventListener('click', () => {
+    goSurvey(); 
+});
+
+choices.forEach((element) => element.addEventListener('click', (event) => {
+    let continueSurvey = handleNewAnswer(event);
+
+    if(!continueSurvey) {
+        endSurvey();
+        drawCharts();
+    }
+}));
+
+
+
+function initializePage() {
+    let displaySet = generateNonDuplicateSet(surveyOperator);
+    surveyOperator.addSetToHistory(displaySet);
+    displayChoices(surveyOperator);
+    
+    resultsDrawer.classList.add('hidden');
+}
+
+function goSurvey() {
     surveyOperator = new SurveyTracker();
+    surveyMusic.loop();
+
     surveyDrawer.classList.remove('hidden');
     resultsDrawer.classList.add('hidden');
     instructionsShowHide.checked = false;
+    disableChoicesButtons(false);
+}
 
-    surveyMusic.loop();
-  
-});
+function handleNewAnswer(e) {
+    const userSelectedCode = e.currentTarget.value;
+    surveyOperator.addAnswerToResults(userSelectedCode);
 
-
-choices.forEach((element) => element.addEventListener('click', (event) => handleSurveyAnswer(event)));
-function handleSurveyAnswer(e) {
-    const code = e.currentTarget.value;
-    surveyOperator.addAnswerToResults(code);
-
-    const choices = document.querySelectorAll('.choice');
-    choices[0].disabled = true;
-    choices[1].disabled = true;
-    choices[2].disabled = true;
-
-    if(surveyOperator.getNumAnswers() < 25) {
+    disableChoicesButtons(true);
+    if(surveyOperator.getNumAnswers() < SURVEY_LENGTH) {
         let displaySet = generateNonDuplicateSet(surveyOperator);
         surveyOperator.addSetToHistory(displaySet);
         displayChoices(surveyOperator);
-        choices[0].disabled = false;
-        choices[1].disabled = false;
-        choices[2].disabled = false;    
+        disableChoicesButtons(false);
+        return true;
     }
-    else {
-        endSurvey();
-    }
+    return false;
 }
-
 
 function endSurvey() {
     surveyDrawer.classList.add('hidden');
     resultsDrawer.classList.remove('hidden');
     surveyMusic.stop();
     endSurveyMusic.play();
-    drawCharts();
 }
+
 
 function displayChoices(surveyOperator) {
     const currentSet = surveyOperator.getLastSetFromHistory();
 
-    for(let i = 0; i < 3; i++) {
+    for(let i = 0; i < SURVEY_SETSIZE; i++) {
         const element = document.getElementById('img-' + (i + 1));
         const product = storage.getProduct(currentSet[i]);
         element.src = product.image;
@@ -89,7 +100,7 @@ function generateNonDuplicateSet(surveyOperator) {
     let newSet = [];
     const history = surveyOperator.getAllHistory();
     do{
-        newSet = productSet.generateRandomSetOfCodes(3);
+        newSet = productSet.generateRandomSetOfCodes(SURVEY_SETSIZE);
         history.forEach((historyElement) => {
             if(testSetsForPairEquivalence(newSet, historyElement)) {
                 newSet = [];
@@ -99,7 +110,6 @@ function generateNonDuplicateSet(surveyOperator) {
 
     return newSet;
 }
-
 function testSetsForPairEquivalence(set1, set2) {
     let repeatItemCount = 0;
     set1.forEach((elementFromSet1) => {
@@ -112,22 +122,28 @@ function testSetsForPairEquivalence(set1, set2) {
     return (repeatItemCount >= 2) ? true : false;
 }
 
+
 function drawCharts() {
+    const products = storage.getProducts();
     let productLabels = [];
     let sessionSelectionsDataPoints = [];
     let sessionOccurenceDataPoints = [];
     let historicalSelectionsDataPoints = [];
     let numChoicesPoints = [];
 
-
-    const products = storage.getProducts();
     products.forEach(element => {
         productLabels.push(element.name);
         sessionSelectionsDataPoints.push(surveyOperator.getAnswerOccurrence(element.code));
         sessionOccurenceDataPoints.push(surveyOperator.getItemOccurrenceFromSetHistory(element.code));
         numChoicesPoints.push(surveyOperator.getNumAnswers());
+        historicalSelectionsDataPoints.push(storage.getAnswerOccurrence(element.code));
     });
     
+    drawChartWithSessionData(productLabels, sessionSelectionsDataPoints, sessionOccurenceDataPoints);
+    drawChartWithHistoricalData(productLabels, historicalSelectionsDataPoints);
+}
+
+function drawChartWithSessionData(productLabels, sessionSelectionsDataPoints, sessionOccurenceDataPoints) {
     const img1 = new Image();
     img1.src = '../assets/vomit.png';
     const img2 = new Image();
@@ -136,37 +152,24 @@ function drawCharts() {
         const sessionCtx = document.getElementById('choices-chart-session').getContext('2d');
         const fillPattern1 = sessionCtx.createPattern(img1, 'repeat');
         const fillPattern2 = sessionCtx.createPattern(img2, 'repeat');
+        /* eslint-disable-next-line */
         let chart = new Chart(sessionCtx, {
-            // The type of chart we want to create
             type: 'line',
-            // The data for our dataset
             data: {
                 labels: productLabels,
                 datasets: [{
                     label: 'Number of User Selections',
-                    // yAxisID: 'first-y-axis',
                     backgroundColor: fillPattern2,
                     borderColor: 'rgb(255, 99, 255)',
                     borderWidth: 5,
                     data: sessionSelectionsDataPoints
                 }, {
                     label: 'Number of Times Shown',
-                    // yAxisID: 'first-y-axis',
                     backgroundColor: fillPattern1,
                     borderColor: 'rgb(128, 172, 53)',
                     borderWidth: 8,
                     data: sessionOccurenceDataPoints
-                }
-                // , {
-                //     label: 'Total Number of Selections',
-                //     // yAxisID: 'second-y-axis',
-                //     borderColor: 'rgb(0, 0, 0)',
-                //     borderWidth: 1,
-                //     borderDash: [5, 5],
-                //     pointStyle: 'line',
-                //     data: numChoicesPoints
-                // }
-                ]
+                }]
             },
             options: {
                 title: {
@@ -178,20 +181,18 @@ function drawCharts() {
                 scales: {
                     yAxes: [{
                         ticks: {
-                            beginAtZero:true
+                            beginAtZero: true
                         }
                     }]
                 }
             }
         });
     };
+}
 
-
-    products.forEach(element => {
-        historicalSelectionsDataPoints.push(storage.getAnswerOccurrence(element.code));
-    });
-    
+function drawChartWithHistoricalData(productLabels, historicalSelectionsDataPoints) {
     const historicalCtx = document.getElementById('frequency-chart-session').getContext('2d');
+    /* eslint-disable-next-line */
     let chart = new Chart(historicalCtx, {
         type: 'pie',
         data: {
@@ -242,5 +243,10 @@ function drawCharts() {
             responsive: true
         }
     });
+}
 
+function disableChoicesButtons(disable) {
+    choices[0].disabled = disable;
+    choices[1].disabled = disable;
+    choices[2].disabled = disable;
 }

@@ -63,7 +63,11 @@
 - add alt text to images - DONE
 - investigate buttons occasionally not working - DONE
 - parse history to get results of how many times an image was shown - DONE
-  - single session
-  - lifetime sessions
 - Refactor
+- get charts to be responsive
 - get Travis to pass
+- status message
+- fix +/- text size on instructions drawer
+- set fixed height on image tiles
+- show total number of selections on an alternate axis
+  - datasets property: yAxisID: 'first-y-axis',

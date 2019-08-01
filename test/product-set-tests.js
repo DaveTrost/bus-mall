@@ -43,8 +43,8 @@ test('test generate random codes', assert => {
     assert.equal((countUnexpectedResults < attempts * 0.1), true);
 });
 
-// A handy deep equal function from SO:
-// https://stackoverflow.com/questions/201183/how-to-determine-equality-for-two-javascript-objects/16788517#16788517
+/* A handy deep equal function from SO:
+   https://stackoverflow.com/questions/201183/how-to-determine-equality-for-two-javascript-objects/16788517#16788517 */
 function deepEqual(x, y) {
     const ok = Object.keys, tx = typeof x, ty = typeof y;
     return x && y && tx === 'object' && tx === ty ? (
