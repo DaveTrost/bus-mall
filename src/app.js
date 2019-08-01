@@ -14,6 +14,7 @@ const products = storage.getProducts();
 let surveyOperator = new SurveyTracker();
 const instructionsShowHide = document.getElementById('instructions-show-hide');
 const startRestart = document.getElementById('start-reset');
+const showResults = document.getElementById('show-results');
 const surveyDrawer = document.getElementById('survey-drawer');
 const resultsDrawer = document.getElementById('results-drawer');
 const choices = document.querySelectorAll('.choice');
@@ -33,6 +34,10 @@ choices.forEach((element) => element.addEventListener('click', (event) => {
         drawCharts();
     }
 }));
+
+showResults.addEventListener('click', () => {
+    drawCharts();
+});
 
 
 
@@ -71,7 +76,6 @@ function handleNewAnswer(e) {
 
 function endSurvey() {
     surveyDrawer.classList.add('hidden');
-    resultsDrawer.classList.remove('hidden');
     surveyMusic.stop();
     endSurveyMusic.play();
 }
@@ -124,6 +128,8 @@ function testSetsForPairEquivalence(set1, set2) {
 
 
 function drawCharts() {
+    resultsDrawer.classList.remove('hidden');
+    
     const products = storage.getProducts();
     let productLabels = [];
     let sessionSelectionsDataPoints = [];
