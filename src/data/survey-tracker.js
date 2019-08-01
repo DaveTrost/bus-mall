@@ -59,7 +59,21 @@ export class SurveyTracker {
     getAnswerOccurrence(answer) {
         let occurrence = 0;
         const currentAnswer = this.findAnswer(answer);
-        if(currentAnswer) occurrence = currentAnswer.occurrence;
+        if(currentAnswer) {
+            occurrence = currentAnswer.occurrence;
+        }
         return occurrence;
+    }
+    getItemOccurrenceFromSetHistory(code) {
+        let occurrences = 0;
+        const allHistory = this.getAllHistory();
+        allHistory.forEach(setElement => {
+            setElement.forEach(element => {
+                if(element === code) {
+                    occurrences++;
+                }
+            });
+        });
+        return occurrences;
     }
 }

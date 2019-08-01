@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Bus-Mall Marketing</title>
     <link rel="stylesheet" href="src/main.css">
+    <link rel="stylesheet" href="src/chart.css">
 </head>
 <body>
     <header>
@@ -44,28 +45,8 @@
         <section id="results-drawer">
             <h2>Results</h2>
             <p>You made <span id="num-choices"></span> selections and, clearly, your taste is <strong><big>AWFUL</big></strong>.</p>
-            <canvas id="chart"></canvas>
-            <table id="results">
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Times Selected</th>
-                        <th>Data Size</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><img src="assets/bubblegum.jpg" alt="hearty Italian style meatball bubblegum"></td>
-                        <td>3</td>
-                        <td>25</td>
-                    </tr>
-                    <tr>
-                        <td><img src="assets/bubblegum.jpg" alt="hearty Italian style meatball bubblegum"></td>
-                        <td>3</td>
-                        <td>25</td>
-                    </tr>
-                </tbody>
-            </table>
+            <canvas id="choices-chart-session"></canvas>
+            <canvas id="frequency-chart-session"></canvas>
         </section>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.js"></script>
         <script type="module" src="src/app.js"></script>

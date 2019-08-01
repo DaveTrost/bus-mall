@@ -11,7 +11,14 @@ const choices = document.querySelectorAll('.choice');
 
 let surveyOperator = new SurveyTracker();
 const products = storage.getProducts();
-resultsDrawer.classList.add('hidden');
+
+
+
+//resultsDrawer.classList.add('hidden');
+drawCharts();
+
+
+
 let displaySet = generateNonDuplicateSet(surveyOperator);
 surveyOperator.addSetToHistory(displaySet);
 displayChoices(surveyOperator);
@@ -51,6 +58,8 @@ function endSurvey() {
     alert('We haz extracted all of your brain juice. You leave now.');
     surveyDrawer.classList.add('hidden');
     resultsDrawer.classList.remove('hidden');
+
+    drawCharts();
 }
 
 function displayChoices(surveyOperator) {
@@ -97,4 +106,108 @@ function testSetsForPairEquivalence(set1, set2) {
         });
     });
     return (repeatItemCount >= 2) ? true : false;
+}
+
+function drawCharts() {
+
+    let productLabels = [];
+    let sessionOccurenceDataPoints = [];
+    let historicalOccurenceDataPoints = [];
+    let numChoicesPoints = [];
+    const products = storage.getProducts();
+    products.forEach(element => {
+        productLabels.push(element.name);
+        sessionOccurenceDataPoints.push(surveyOperator.getAnswerOccurrence(element.code));
+        historicalOccurenceDataPoints.push(surveyOperator.getItemOccurrenceFromSetHistory(element.code));
+        numChoicesPoints.push(surveyOperator.getNumAnswers());
+    });
+    
+    const img1 = new Image();
+    img1.src = '../assets/vomit.png';
+    const img2 = new Image();
+    img2.src = '../assets/vomit-splat.png';
+    img1.onload = () => img2.onload = () => {
+        const sessionCtx = document.getElementById('choices-chart-session').getContext('2d');
+        const fillPattern1 = sessionCtx.createPattern(img1, 'repeat');
+        const fillPattern2 = sessionCtx.createPattern(img2, 'repeat');
+        let chart = new Chart(sessionCtx, {
+            // The type of chart we want to create
+            type: 'line',
+            // The data for our dataset
+            data: {
+                labels: productLabels,
+                datasets: [{
+                    label: 'Number of User Selections',
+                    // yAxisID: 'first-y-axis',
+                    backgroundColor: fillPattern2,
+                    borderColor: 'rgb(255, 99, 255)',
+                    borderWidth: 5,
+                    data: sessionOccurenceDataPoints
+                }, {
+                    label: 'Number of Times Shown',
+                    // yAxisID: 'first-y-axis',
+                    backgroundColor: fillPattern1,
+                    borderColor: 'rgb(128, 172, 53)',
+                    borderWidth: 8,
+                    data: historicalOccurenceDataPoints
+                }
+                // , {
+                //     label: 'Total Number of Selections',
+                //     // yAxisID: 'second-y-axis',
+                //     borderColor: 'rgb(0, 0, 0)',
+                //     borderWidth: 1,
+                //     borderDash: [5, 5],
+                //     pointStyle: 'line',
+                //     data: numChoicesPoints
+                // }
+                ]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+    };
+
+
+
+    
+    const ctxFrequencyInSession = document.getElementById('frequency-chart-session').getContext('2d');
+    let chart = new Chart(ctxFrequencyInSession, {
+        type: 'pie',
+        data: {
+            labels: [
+                'Red',
+                'Orange',
+                'Yellow',
+                'Green',
+                'Blue'
+            ],
+            datasets: [{
+                label: 'Dataset 1',
+                data: [
+                    0,
+                    10,
+                    5,
+                    7,
+                    20,
+                ],
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 99, 132)',
+                ]
+            }]
+        },
+        options: {
+        }
+    });
+
 }
