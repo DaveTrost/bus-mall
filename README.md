@@ -62,7 +62,8 @@
   - clear the single session variables on start and re-start - DONE
 - add alt text to images - DONE
 - investigate buttons occasionally not working - DONE
-
-- parse history to get results of how many times an image was shown
+- parse history to get results of how many times an image was shown - DONE
   - single session
   - lifetime sessions
+- Refactor
+- get Travis to pass
