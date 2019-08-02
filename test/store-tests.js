@@ -23,7 +23,7 @@ test('test bootstrapping works in getProducts', assert => {
 });
 
 test('test get results when results is empty', assert => {
-    assert.deepEqual(storage.getResults(), []);
+    assert.deepEqual(storage.getAnswers(), []);
 });
 
 test('test store and get results', assert => {
@@ -32,6 +32,6 @@ test('test store and get results', assert => {
         occurrence: 1
     };
     storage.storeResults(expected);
-    assert.deepEqual(storage.getResults(), expected);
+    assert.deepEqual(storage.getAnswers(), expected);
 });
 

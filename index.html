@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Bus-Mall Marketing</title>
     <link rel="stylesheet" href="src/main.css">
+    <link rel="stylesheet" href="src/chart.css">
 </head>
 <body>
     <header>
@@ -22,50 +23,41 @@
                 <p>
                     The Bus-Mall crack marketing team welcomes you to participate in this study. 
                     The products shown on this page are REAL-LIFE potential sale items for our Bus-Mall magazine.
-                    Please be honest with your answers.
+                    Also, I'm a leprechaun and I can grant you a wish if you send me a million dollars.
                 </p>
                 <button id="start-reset">Start the Survey</button>
+                <button id="show-results">Display Results</button>
             </div>
         </section>
         <section id="survey-drawer" class="hidden">
             <h2>Which item are you most likely to buy?</h2>
             <div id="choices">
-                <button class="choice" value="choice-1">
+                <button class="choice" value="">
                     <img src="" id="img-1" alt="">
                 </button>
-                <button class="choice" value="choice-2">
+                <button class="choice" value="">
                     <img src="" id="img-2" alt="">
                 </button>
-                <button class="choice" value="choice-3">
+                <button class="choice" value="">
                     <img src="" id="img-3" alt="">
                 </button>
             </div>
         </section>
-        <section id="results-drawer" class="hidden">
+        <section id="results-drawer">
             <h2>Results</h2>
-            <table id="results">
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Times Selected</th>
-                        <th>Data Size</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><img src="assets/bubblegum.jpg" alt="hearty Italian style meatball bubblegum"></td>
-                        <td>3</td>
-                        <td>25</td>
-                    </tr>
-                    <tr>
-                        <td><img src="assets/bubblegum.jpg" alt="hearty Italian style meatball bubblegum"></td>
-                        <td>3</td>
-                        <td>25</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div>
+                <canvas id="choices-chart-session"></canvas>
+            </div>
+            <div>
+                <canvas id="frequency-chart-session"></canvas>
+            </div>
+            <p>What a Boring Chart! (click <label for="gross-noises">here<button id="gross-noises"></button></label> to get spicy) <span id="gross-noise-timer"></span></p>
+            <div>
+                <canvas id="choices-chart-history"></canvas>
+            </div>
         </section>
-        <script src="src/app.js" type="module"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.js"></script>
+        <script type="module" src="src/app.js"></script>
     </main>
 </body>
 </html>

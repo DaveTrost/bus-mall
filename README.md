@@ -57,7 +57,18 @@
 
 ### to-do
 
-- cleanup CSS for results header
-- make the restart button work
-- add alt text to images
-- investigate buttons occasionally not working
+- cleanup CSS for results header - DONE
+- long term history vs. session history - DONE
+  - clear the single session variables on start and re-start - DONE
+- add alt text to images - DONE
+- investigate buttons occasionally not working - DONE
+- parse history to get results of how many times an image was shown - DONE
+- Refactor - DONE
+- get Travis to pass - DONE
+- add a results button - DONE
+- get charts to be responsive - DONE
+  - Thank you Sam J for the help!!
+- set fixed height on image tiles - DONE
+- fix +/- text size on instructions drawer - DONE
+- stacked axis
+- status bar
