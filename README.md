@@ -70,7 +70,5 @@
   - Thank you Sam J for the help!!
 - set fixed height on image tiles - DONE
 - fix +/- text size on instructions drawer - DONE
-- show total number of selections on an alternate axis
-  - datasets property: yAxisID: 'first-y-axis',
-  - stacked axis
-- status message
+- stacked axis
+- status bar

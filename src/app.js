@@ -15,6 +15,7 @@ let surveyOperator = new SurveyTracker();
 const instructionsShowHide = document.getElementById('instructions-show-hide');
 const startRestart = document.getElementById('start-reset');
 const showResults = document.getElementById('show-results');
+const grossNoises = document.getElementById('gross-noises');
 const surveyDrawer = document.getElementById('survey-drawer');
 const resultsDrawer = document.getElementById('results-drawer');
 const choices = document.querySelectorAll('.choice');
@@ -37,6 +38,10 @@ choices.forEach((element) => element.addEventListener('click', (event) => {
 
 showResults.addEventListener('click', () => {
     drawCharts();
+});
+
+grossNoises.addEventListener('click', () => {
+    loopNoises();
 });
 
 
@@ -263,23 +268,21 @@ function drawChartWithHistoricalData(productLabels, historicalSelectionsDataPoin
             labels: productLabels,
             datasets: [{
                 label: 'All Time User Selections',
-                backgroundColor: 'rgb(255, 99, 255)',
+                borderColor: 'rgb(255, 99, 255)',
+                borderWidth: 1,
                 data: historicalSelectionsDataPoints
             }, {
                 label: 'All Time Views',
-                backgroundColor: 'rgb(128, 172, 53)',
                 data: historicalOccurrenceDataPoints
             }]
         },
         options: {
-            title: {
-                text: 'Survey Results (boring historical data)',
-                display: true,
-                fontSize: '35',
-                fontColor: '#8EB1C7'
-            },
             scales: {
+                xAxes: [{
+                    stacked: true
+                }],
                 yAxes: [{
+                    stacked: false,
                     ticks: {
                         beginAtZero: true
                     }
@@ -294,4 +297,40 @@ function disableChoicesButtons(disable) {
     choices[0].disabled = disable;
     choices[1].disabled = disable;
     choices[2].disabled = disable;
+}
+
+function loopNoises() {
+    const grossNoiseTimer = document.getElementById('gross-noise-timer');
+    const sound1 = new Sound('../assets/fart-1.wav');
+    const sound2 = new Sound('../assets/fart-2.wav');
+    const sound3 = new Sound('../assets/fart-3.wav');
+    const sound4 = new Sound('../assets/fart-4.wav');
+    const sound5 = new Sound('../assets/fart-5.wav');
+    const sound6 = new Sound('../assets/fart-6.wav');
+    const sound7 = new Sound('../assets/fart-7.wav');
+    const sound8 = new Sound('../assets/puke.mp3');
+    const sound9 = new Sound('../assets/hock-loogie.wav');
+    const sound10 = new Sound('../assets/cough.wav');
+    const noises = [
+        sound1, 
+        sound2, 
+        sound3,
+        sound4,
+        sound5,
+        sound6,
+        sound7,
+        sound8,
+        sound9,
+        sound10
+    ];
+
+    let i = 1;
+    const noiseInterval = setInterval(() => {
+        const thisSound = noises[Math.floor(Math.random() * noises.length)];
+        thisSound.play();
+        grossNoiseTimer.textContent = `(${i++} of 30)`;
+        if(i > 30) {
+            clearInterval(noiseInterval);
+        }
+    }, 1000);
 }
