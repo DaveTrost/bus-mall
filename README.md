@@ -17,7 +17,7 @@
     - disable the start/restart button
   - Loop until 25 choices have been made
     - generate a new set of 3 images
-      - build a temporary image list that excludees the last set of images used
+      - build a temporary image list that excludes the last set of images used
       - start a loop
         - get a random set of 3 images from the temporary image list
         - for each set in .setHistory[], check if any 2 products from the current random set have been included in a single previous set.
@@ -25,8 +25,8 @@
     - display the new set of 3 images
     - wait for click event
     - update data
-      - increment numChoices
-      - increment the times chosen variable from chosenItem[] array
+      - increment numChoices - DONE
+      - increment the occurrences for this choice - DONE
       - set the .lastSet variable
       - add .lastSet to the history of sets shown (.setHistory[])
     - continue the loop
@@ -37,3 +37,27 @@
   - rename the Start button to Restart and enable the button
   - generate results table
   - display the results table
+
+### data structures
+
+- Class: ProductSet - this is used for storing all the valid products from the master list. It has the following methods:
+  - get initialized from a given list (constructor) ... the master list
+  - remove a set of 3 items
+  - generate a random set of 3 images
+
+- Class: SurveyTracker - this is used for tracking all the data about the survey.  
+  - history of sets
+  - number of sets displayed
+  - number of times any given product has been selected
+  - checkForEquivalenceToHistory - checks if an incoming set shares 2 or more products with a set that was previously displayed
+
+- Object: storage - this saves data to and retrieves it from localStorage
+  - The store bootstraps itself from input data
+  - methods to save results to localStorage and retrieve results from localStorage
+
+### to-do
+
+- cleanup CSS for results header
+- make the restart button work
+- add alt text to images
+- investigate buttons occasionally not working

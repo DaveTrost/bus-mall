@@ -2,17 +2,18 @@
     box-sizing: border-box;
 }
 
+
 header {
     height: 10vh;
 }
 header img {
-    height: calc(10vh - 10px);
+    height: calc(10vh + 10px);
     float: left;
 }
 header h3, header p {
     color: #75746E;
     margin: 0;
-    margin-left: 10vh;
+    margin-left: 29vh;
     line-height: 1em;
 }
 header h3 {
@@ -50,8 +51,8 @@ h2 {
 h2, h3 {
     /* equation for font scaling between a min and a max using calc from: https://css-tricks.com/books/volume-i/scale-typography-screen-size/ */
     /* (100vw - 300)/1300 = (font-size - min-size)/(max-size - min-size) */
-    /* solved here for 16px to 24px */
-    font-size: calc( (2px + (100vw - 300px) / 1300) * 8);
+    /* solved here for 16px to 40px */
+    font-size: calc( (0.67px + (100vw - 300px) / 1300) * 24);
 }
 
 
@@ -64,9 +65,10 @@ h2, h3 {
     position: absolute
 }
 #instructions-show-hide + label {
-    font-weight: bolder;
+    font-size: calc(30px + 3vw);
+    font-weight: bold;
     right: 10px;
-    top: 25px;
+    top: 1.8vh;
     position: absolute;
 }
 #instructions-show-hide {
@@ -79,7 +81,7 @@ h2, h3 {
     content: "-";
 }
 #instructions-drawer div {
-    margin-top: 60px;
+    margin-top: calc(20px + 5vw);
     display: none;
 }
 #instructions-show-hide:checked + label + div {
@@ -102,6 +104,7 @@ h2, h3 {
 } 
 #choices {
     width: 100%;
+    height: 200%;
     max-width: 900px;
     margin: auto;
     display: grid;
@@ -117,11 +120,12 @@ h2, h3 {
 .choice {
     width: calc(100% - 3px);
     height: calc(100% - 3px);
+    padding: 0;
+    margin: 5px;
 }
 .choice img {
     width: 100%;
     height: 100%;
-    padding: 2px;
     object-fit: contain;
 }
 
@@ -151,6 +155,7 @@ h2, h3 {
     object-fit: contain;
 }
 #results-drawer {
+    margin-top: calc(40px + 5vw);
     margin-bottom: 50px;
 }
 
@@ -158,22 +163,3 @@ h2, h3 {
 .hidden {
     display: none;
 }
-
-
-/* @keyframes shrink {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    50% {
-        transform: scale(0.5);
-        opacity: 0; 
-    }
-    100% {
-        transform: scale(0);
-        opacity: 0; 
-    }
-}
-.shrink-out {
-    animation: shrink 1s linear;
-} */

@@ -10,8 +10,9 @@
 <body>
     <header>
         <img src="assets/bus-mall-logo.png" alt="logo">
+        <img src="assets/funny-bus-stop.png" alt="cartoon of funny people at a bus stop">
         <h3>The Bus Mall Crack Marketing Team</h3>
-        <p>We bring whack shit to the bench     where you sit</p>
+        <p>We bring <em>whack shit</em> to the bus where <em>you sit</em></p>
     </header>
     <main>
         <section id="instructions-drawer">
@@ -21,27 +22,22 @@
                 <p>
                     The Bus-Mall crack marketing team welcomes you to participate in this study. 
                     The products shown on this page are REAL-LIFE potential sale items for our Bus-Mall magazine.
-                    (Think Sky-Mall for Greyhound??).
+                    Please be honest with your answers.
                 </p>
-                <p>
-                    Images of these unbelievable products will be presented three-at-a-time. 
-                    We ask you to pick based on your first impression ...
-                    Why? Because it's better to pick for us than to pick your nose. Duh!
-                </p>
-                <button id="start-reset">Start the Study</button>
+                <button id="start-reset">Start the Survey</button>
             </div>
         </section>
         <section id="survey-drawer" class="hidden">
             <h2>Which item are you most likely to buy?</h2>
             <div id="choices">
-                <button class="choice" id="choice-1">
-                    <img src="assets/bubblegum.jpg" alt="hearty Italian style meatball bubblegum">
+                <button class="choice" value="choice-1">
+                    <img src="" id="img-1" alt="">
                 </button>
-                <button class="choice" id="choice-2">
-                    <img src="assets/wine-glass.jpg" alt="wine glass that is easy to fill and impossible to drink out of">
+                <button class="choice" value="choice-2">
+                    <img src="" id="img-2" alt="">
                 </button>
-                <button class="choice" id="choice-3">
-                    <img src="assets/sweep.png" alt="infant outfit that sweeps the floor as the child crawls">
+                <button class="choice" value="choice-3">
+                    <img src="" id="img-3" alt="">
                 </button>
             </div>
         </section>
@@ -69,7 +65,7 @@
                 </tbody>
             </table>
         </section>
-        <script src="src/give-survey.js" type="module"></script>
+        <script src="src/app.js" type="module"></script>
     </main>
 </body>
 </html>
