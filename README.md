@@ -70,5 +70,7 @@
   - Thank you Sam J for the help!!
 - set fixed height on image tiles - DONE
 - fix +/- text size on instructions drawer - DONE
-- stacked axis
+- stacked axis - DONE
 - status bar
+
+TO-DO: one more reading, one more journal
