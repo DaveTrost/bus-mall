@@ -159,9 +159,9 @@ function drawCharts() {
 
 function drawChartWithSessionData(productLabels, sessionSelectionsDataPoints, sessionOccurenceDataPoints) {
     const img1 = new Image();
-    img1.src = './assets/vomit.png';
+    img1.src = 'assets/vomit.png';
     const img2 = new Image();
-    img2.src = './assets/vomit-splat.png';
+    img2.src = 'assets/vomit-splat.png';
     img1.onload = () => img2.onload = () => {
         const sessionCtx = document.getElementById('choices-chart-session').getContext('2d');
         const fillPattern1 = sessionCtx.createPattern(img1, 'repeat');
