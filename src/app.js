@@ -7,8 +7,8 @@ export const SURVEY_SETSIZE = 3;
 
 /* Music by Eric Matyas
    www.soundimage.org */
-const surveyMusic = new Sound('http://soundimage.org/wp-content/uploads/2015/08/My-Fat-Cat.mp3');
-const endSurveyMusic = new Sound('http://soundimage.org/wp-content/uploads/2016/04/PowerRez7.mp3');
+const surveyMusic = new Sound('./assets/My-Fat-Cat.mp3');
+const startResultsSound = new Sound('./assets/PowerRez7.mp3');
 
 const products = storage.getProducts();
 let surveyOperator = new SurveyTracker();
@@ -41,7 +41,7 @@ showResults.addEventListener('click', () => {
 });
 
 grossNoises.addEventListener('click', () => {
-    loopNoises();
+    loopNoises(30);
 });
 
 
@@ -82,7 +82,6 @@ function handleNewAnswer(e) {
 function endSurvey() {
     surveyDrawer.classList.add('hidden');
     surveyMusic.stop();
-    endSurveyMusic.play();
 }
 
 
@@ -133,6 +132,8 @@ function testSetsForPairEquivalence(set1, set2) {
 
 
 function drawCharts() {
+    surveyMusic.stop();
+    startResultsSound.play();
     resultsDrawer.classList.remove('hidden');
     
     const products = storage.getProducts();
@@ -158,9 +159,9 @@ function drawCharts() {
 
 function drawChartWithSessionData(productLabels, sessionSelectionsDataPoints, sessionOccurenceDataPoints) {
     const img1 = new Image();
-    img1.src = '../assets/vomit.png';
+    img1.src = './assets/vomit.png';
     const img2 = new Image();
-    img2.src = '../assets/vomit-splat.png';
+    img2.src = './assets/vomit-splat.png';
     img1.onload = () => img2.onload = () => {
         const sessionCtx = document.getElementById('choices-chart-session').getContext('2d');
         const fillPattern1 = sessionCtx.createPattern(img1, 'repeat');
@@ -299,18 +300,19 @@ function disableChoicesButtons(disable) {
     choices[2].disabled = disable;
 }
 
-function loopNoises() {
+let additiveCount = 0;
+function loopNoises(count) {
     const grossNoiseTimer = document.getElementById('gross-noise-timer');
-    const sound1 = new Sound('../assets/fart-1.wav');
-    const sound2 = new Sound('../assets/fart-2.wav');
-    const sound3 = new Sound('../assets/fart-3.wav');
-    const sound4 = new Sound('../assets/fart-4.wav');
-    const sound5 = new Sound('../assets/fart-5.wav');
-    const sound6 = new Sound('../assets/fart-6.wav');
-    const sound7 = new Sound('../assets/fart-7.wav');
-    const sound8 = new Sound('../assets/puke.mp3');
-    const sound9 = new Sound('../assets/hock-loogie.wav');
-    const sound10 = new Sound('../assets/cough.wav');
+    const sound1 = new Sound('./assets/fart-1.wav');
+    const sound2 = new Sound('./assets/fart-2.wav');
+    const sound3 = new Sound('./assets/fart-3.wav');
+    const sound4 = new Sound('./assets/fart-4.wav');
+    const sound5 = new Sound('./assets/fart-5.wav');
+    const sound6 = new Sound('./assets/fart-6.wav');
+    const sound7 = new Sound('./assets/fart-7.wav');
+    const sound8 = new Sound('./assets/puke.mp3');
+    const sound9 = new Sound('./assets/hock-loogie.wav');
+    const sound10 = new Sound('./assets/cough.wav');
     const noises = [
         sound1, 
         sound2, 
@@ -328,9 +330,13 @@ function loopNoises() {
     const noiseInterval = setInterval(() => {
         const thisSound = noises[Math.floor(Math.random() * noises.length)];
         thisSound.play();
-        grossNoiseTimer.textContent = `(${i++} of 30)`;
-        if(i > 30) {
+        additiveCount++;
+        i++;
+        grossNoiseTimer.textContent = `(spice level = ${additiveCount})`;
+        if(i > count) {
             clearInterval(noiseInterval);
+            grossNoiseTimer.textContent = '';
+            additiveCount -= count;
         }
     }, 1000);
 }
